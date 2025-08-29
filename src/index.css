@@ -2,41 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Murlie Enterprises - Premium Liquid Glass Design System
+All colors MUST be HSL for optimal theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Premium Navy & Teal Palette */
+    --background: 220 20% 8%;
+    --foreground: 210 20% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Glass & Card Elements */
+    --card: 220 15% 12%;
+    --card-foreground: 210 15% 95%;
+    --glass: 220 25% 15%;
+    --glass-border: 195 100% 50%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover Elements */
+    --popover: 220 20% 10%;
+    --popover-foreground: 210 15% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary Brand Colors - Deep Navy to Teal */
+    --primary: 220 90% 15%;
+    --primary-foreground: 210 20% 98%;
+    --primary-glow: 195 100% 50%;
+    --primary-light: 200 85% 25%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Teal Accents */
+    --secondary: 195 100% 20%;
+    --secondary-foreground: 210 20% 98%;
+    --secondary-glow: 180 100% 50%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted Elements */
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 10% 65%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Electric Cyan */
+    --accent: 180 100% 50%;
+    --accent-foreground: 220 90% 15%;
+    --accent-soft: 185 80% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status Colors */
+    --destructive: 0 85% 55%;
+    --destructive-foreground: 210 20% 98%;
+    --success: 140 85% 45%;
+    --warning: 45 100% 55%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Border & Input Elements */
+    --border: 220 25% 20%;
+    --input: 220 25% 15%;
+    --ring: 195 100% 50%;
 
-    --radius: 0.5rem;
+    /* Design System Variables */
+    --radius: 1rem;
+    --glass-opacity: 0.1;
+    --glow-intensity: 0.4;
+
+    /* Premium Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(220 90% 15%) 0%, hsl(195 100% 20%) 50%, hsl(180 100% 30%) 100%);
+    --gradient-secondary: linear-gradient(45deg, hsl(195 100% 20%) 0%, hsl(180 100% 40%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(220 25% 15% / 0.3) 0%, hsla(195 100% 50% / 0.1) 100%);
+    --gradient-hero: radial-gradient(circle at 20% 50%, hsl(220 90% 15%) 0%, hsl(195 100% 15%) 25%, hsl(180 90% 20%) 50%, hsl(220 90% 10%) 100%);
+
+    /* Shadows & Glows */
+    --shadow-glass: 0 8px 32px hsla(220 90% 15% / 0.3), 0 0 0 1px hsla(195 100% 50% / 0.2);
+    --shadow-glow: 0 0 30px hsla(195 100% 50% / 0.3);
+    --shadow-float: 0 20px 60px hsla(220 90% 15% / 0.4), 0 0 0 1px hsla(195 100% 50% / 0.1);
+    --shadow-product: 0 25px 80px hsla(195 100% 50% / 0.2);
+
+    /* Animation Variables */
+    --transition-glass: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.3s ease-out;
+    --transition-float: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dark {
+    /* Dark mode inherits the same premium theme */
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +142,83 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-hero);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  /* Glass Effects */
+  .glass-panel {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsla(var(--glass-border) / 0.2);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .glass-card {
+    background: hsla(var(--glass) / 0.4);
+    backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid hsla(var(--glass-border) / 0.15);
+    box-shadow: var(--shadow-float);
+  }
+  
+  /* Glow Effects */
+  .glow-primary {
+    box-shadow: 0 0 40px hsla(var(--primary-glow) / var(--glow-intensity));
+  }
+  
+  .glow-secondary {
+    box-shadow: 0 0 30px hsla(var(--secondary-glow) / var(--glow-intensity));
+  }
+  
+  .glow-accent {
+    box-shadow: 0 0 25px hsla(var(--accent) / 0.6);
+  }
+  
+  /* Gradient Backgrounds */
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .bg-gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+  
+  .bg-gradient-glass {
+    background: var(--gradient-glass);
+  }
+  
+  /* Floating Product Effects */
+  .float-product {
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+    box-shadow: var(--shadow-product);
+    transition: var(--transition-float);
+  }
+  
+  .float-product:hover {
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-10px);
+  }
+  
+  /* Interactive Elements */
+  .glass-button {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px) saturate(200%);
+    border: 1px solid hsla(var(--accent) / 0.3);
+    transition: var(--transition-glass);
+  }
+  
+  .glass-button:hover {
+    background: var(--gradient-secondary);
+    box-shadow: var(--shadow-glow);
+    border-color: hsla(var(--accent) / 0.6);
+    transform: translateY(-2px);
+  }
+  
+  /* Navigation Glass */
+  .nav-glass {
+    background: hsla(var(--background) / 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid hsla(var(--border) / 0.1);
   }
 }
