@@ -1,5 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
+import purpleSneakers from "@/assets/product-purple-sneakers.jpg";
+import redSneakers from "@/assets/product-red-sneakers.jpg";
+import blackSandals from "@/assets/product-black-sandals.jpg";
+import brownSandals from "@/assets/product-brown-sandals.jpg";
 
 const FeaturedProducts = () => {
   const products = [
@@ -9,7 +13,7 @@ const FeaturedProducts = () => {
       category: "Premium Sneakers",
       price: 299,
       originalPrice: 349,
-      image: "👟", // Placeholder - you can replace with actual product images
+      image: purpleSneakers,
       rating: 4.9,
       reviews: 124,
       badge: "Bestseller",
@@ -18,10 +22,10 @@ const FeaturedProducts = () => {
     {
       id: 2,
       name: "Executive Elite",
-      category: "Formal Collection",
+      category: "Sport Collection",
       price: 459,
       originalPrice: null,
-      image: "👞", // Placeholder - you can replace with actual product images
+      image: redSneakers,
       rating: 5.0,
       reviews: 89,
       badge: "New",
@@ -29,11 +33,11 @@ const FeaturedProducts = () => {
     },
     {
       id: 3,
-      name: "Velocity Sport",
-      category: "Sport Performance",
+      name: "Crystal Comfort",
+      category: "Luxury Sandals",
       price: 199,
       originalPrice: 249,
-      image: "🏃‍♂️", // Placeholder - you can replace with actual product images
+      image: blackSandals,
       rating: 4.8,
       reviews: 256,
       badge: "Hot",
@@ -41,11 +45,11 @@ const FeaturedProducts = () => {
     },
     {
       id: 4,
-      name: "Crystal Comfort",
-      category: "Luxury Sandals",
+      name: "Elegance Classic",
+      category: "Premium Sandals",
       price: 189,
       originalPrice: null,
-      image: "🩴", // Placeholder - you can replace with actual product images
+      image: brownSandals,
       rating: 4.7,
       reviews: 67,
       badge: "Limited",
@@ -99,8 +103,12 @@ const FeaturedProducts = () => {
 
                 {/* Product Image */}
                 <div className="relative float-product group-hover:scale-110 transition-transform duration-500">
-                  <div className="text-6xl flex items-center justify-center h-40">
-                    {product.image}
+                  <div className="flex items-center justify-center h-40">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                   
                   {/* Floating Glow */}

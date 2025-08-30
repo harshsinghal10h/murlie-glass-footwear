@@ -22,7 +22,7 @@ const Hero = () => {
             </div>
             
             <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
+              <span className="text-sky-400">
                 Step Into
               </span>
               <br />
@@ -39,6 +39,7 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="glass-button group px-8 py-6 text-lg font-semibold glow-primary"
+              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Shop Collection
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -48,6 +49,7 @@ const Hero = () => {
               variant="outline" 
               size="lg" 
               className="glass-card px-8 py-6 text-lg font-medium border-glass-border/30 hover:border-accent/50"
+              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Catalog
             </Button>
