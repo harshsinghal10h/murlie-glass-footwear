@@ -69,7 +69,7 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1 space-y-6">
             <div>
-              <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+              <h3 className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent glass-panel px-4 py-2 rounded-xl glow-primary animate-glow-pulse mb-4">
                 Murlie Enterprises
               </h3>
               <p className="text-muted-foreground leading-relaxed">
