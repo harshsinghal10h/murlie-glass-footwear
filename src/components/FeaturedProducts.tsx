@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
-import purpleSneakers from "@/assets/product-purple-sneakers.jpg";
-import redSneakers from "@/assets/product-red-sneakers.jpg";
-import blackSandals from "@/assets/product-black-sandals.jpg";
-import brownSandals from "@/assets/product-brown-sandals.jpg";
+import purpleSneakers from "@/assets/product-purple-sneakers.png";
+import redSneakers from "@/assets/product-red-sneakers.png";
+import blackSandals from "@/assets/product-black-sandals.png";
+import brownSandals from "@/assets/product-brown-sandals.png";
 
 const FeaturedProducts = () => {
   const products = [
