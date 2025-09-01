@@ -1,68 +1,68 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import purpleSneakers from "@/assets/product-purple-sneakers.png";
-import redSneakers from "@/assets/product-red-sneakers.png";
-import blackSandals from "@/assets/product-black-sandals.png";
-import brownSandals from "@/assets/product-brown-sandals.png";
+import pinkKnitSneakers from "@/assets/pink-knit-sneakers.jpg";
+import pinkSlipSneakers from "@/assets/pink-slip-sneakers.jpg";
+import decorativeSandals from "@/assets/decorative-sandals.jpg";
+import blackSlippers from "@/assets/black-glitter-slippers.jpg";
 
 const FeaturedProducts = () => {
   const navigate = useNavigate();
   const products = [
     {
       id: 1,
-      name: "Azure Runner Pro",
-      category: "Premium Sneakers",
-      price: 299,
-      originalPrice: 349,
-      image: purpleSneakers,
+      name: "AeroFlex Knit Pro",
+      category: "Athletic Sneakers",
+      price: 285,
+      originalPrice: 320,
+      image: pinkKnitSneakers,
       rating: 4.9,
-      reviews: 124,
+      reviews: 156,
       badge: "Bestseller",
       gradient: "from-primary to-accent"
     },
     {
       id: 2,
-      name: "Executive Elite",
-      category: "Sport Collection",
-      price: 285,
+      name: "ComfortSlip Elite",
+      category: "Casual Sneakers",
+      price: 275,
       originalPrice: null,
-      image: redSneakers,
-      rating: 5.0,
+      image: pinkSlipSneakers,
+      rating: 4.8,
       reviews: 89,
       badge: "New",
       gradient: "from-secondary to-primary-light"
     },
     {
       id: 3,
-      name: "Crystal Comfort",
-      category: "Luxury Sandals",
+      name: "Heritage Craft Sandals",
+      category: "Traditional Footwear",
       price: 265,
       originalPrice: 300,
-      image: blackSandals,
-      rating: 4.8,
-      reviews: 256,
-      badge: "Hot",
+      image: decorativeSandals,
+      rating: 4.7,
+      reviews: 203,
+      badge: "Artisan",
       gradient: "from-accent to-secondary-glow"
     },
     {
       id: 4,
-      name: "Elegance Classic",
-      category: "Premium Sandals",
+      name: "Sparkle Comfort Slippers",
+      category: "Casual Footwear", 
       price: 250,
       originalPrice: null,
-      image: brownSandals,
-      rating: 4.7,
-      reviews: 67,
-      badge: "Limited",
+      image: blackSlippers,
+      rating: 4.6,
+      reviews: 124,
+      badge: "Popular",
       gradient: "from-primary-glow to-accent-soft"
     }
   ];
 
   return (
-    <section id="products" className="py-20 relative">
+    <section id="products" className="py-20 relative bg-background/50 backdrop-blur-sm">
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-0 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-0 w-48 h-48 bg-primary/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '1.5s' }} />
       </div>
