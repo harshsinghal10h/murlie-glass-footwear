@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import purpleSneakers from "@/assets/product-purple-sneakers.png";
 import redSneakers from "@/assets/product-red-sneakers.png";
 import blackSandals from "@/assets/product-black-sandals.png";
 import brownSandals from "@/assets/product-brown-sandals.png";
 
 const FeaturedProducts = () => {
+  const navigate = useNavigate();
   const products = [
     {
       id: 1,
@@ -117,7 +119,12 @@ const FeaturedProducts = () => {
 
                 {/* Quick Actions */}
                 <div className="absolute inset-x-4 bottom-4 flex justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <Button size="sm" variant="ghost" className="glass-button">
+                  <Button 
+                    size="sm" 
+                    variant="ghost" 
+                    className="glass-button"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button size="sm" className="glass-button bg-gradient-primary">
@@ -132,7 +139,10 @@ const FeaturedProducts = () => {
                   <div className="text-xs text-accent font-medium mb-1">
                     {product.category}
                   </div>
-                  <h3 className="font-bold text-lg text-foreground group-hover:text-accent transition-colors">
+                  <h3 
+                    className="font-bold text-lg text-foreground group-hover:text-accent transition-colors cursor-pointer"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
                     {product.name}
                   </h3>
                 </div>
