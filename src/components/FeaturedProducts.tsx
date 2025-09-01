@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
       id: 2,
       name: "Executive Elite",
       category: "Sport Collection",
-      price: 459,
+      price: 285,
       originalPrice: null,
       image: redSneakers,
       rating: 5.0,
@@ -35,8 +35,8 @@ const FeaturedProducts = () => {
       id: 3,
       name: "Crystal Comfort",
       category: "Luxury Sandals",
-      price: 199,
-      originalPrice: 249,
+      price: 265,
+      originalPrice: 300,
       image: blackSandals,
       rating: 4.8,
       reviews: 256,
@@ -47,7 +47,7 @@ const FeaturedProducts = () => {
       id: 4,
       name: "Elegance Classic",
       category: "Premium Sandals",
-      price: 189,
+      price: 250,
       originalPrice: null,
       image: brownSandals,
       rating: 4.7,
@@ -158,11 +158,11 @@ const FeaturedProducts = () => {
                 <div className="flex items-center justify-between">
                   <div className="space-x-2">
                     <span className="text-xl font-bold text-accent">
-                      ${product.price}
+                      ₹{product.price}
                     </span>
                     {product.originalPrice && (
                       <span className="text-sm text-muted-foreground line-through">
-                        ${product.originalPrice}
+                        ₹{product.originalPrice}
                       </span>
                     )}
                   </div>
