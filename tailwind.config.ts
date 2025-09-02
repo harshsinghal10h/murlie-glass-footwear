@@ -63,6 +63,9 @@ export default {
 					DEFAULT: 'hsl(var(--glass))',
 					border: 'hsl(var(--glass-border))'
 				},
+				'mobile-navy': 'hsl(var(--mobile-navy-start))',
+				'cyan-glow': 'hsl(var(--mobile-cyan-glow))',
+				'cyan-muted': 'hsl(var(--mobile-cyan-muted))',
 				success: 'hsl(var(--success))',
 				warning: 'hsl(var(--warning))',
 				sidebar: {

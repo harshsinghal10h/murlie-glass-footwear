@@ -69,6 +69,13 @@ All colors MUST be HSL for optimal theming.
     --shadow-glow: 0 0 30px hsla(195 100% 50% / 0.3);
     --shadow-float: 0 20px 60px hsla(220 90% 15% / 0.4), 0 0 0 1px hsla(195 100% 50% / 0.1);
     --shadow-product: 0 25px 80px hsla(195 100% 50% / 0.2);
+    
+    /* Mobile Product Design System */
+    --mobile-navy-start: 218 65% 7%;
+    --mobile-navy-end: 210 58% 11%;
+    --mobile-cyan-glow: 195 100% 50%;
+    --mobile-cyan-muted: 194 38% 75%;
+    --mobile-card-surface: 215 61% 10%;
 
     /* Animation Variables */
     --transition-glass: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -237,5 +244,161 @@ All colors MUST be HSL for optimal theming.
     background: hsla(var(--background) / 0.8);
     backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid hsla(var(--border) / 0.1);
+  }
+
+  /* Mobile Product Design Classes */
+  .mobile-product-bg {
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-navy-start)) 0%, 
+      hsl(var(--mobile-navy-end)) 100%);
+    position: relative;
+  }
+
+  .mobile-product-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 80%, hsl(var(--mobile-cyan-glow) / 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, hsl(var(--mobile-cyan-glow) / 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .mobile-nav-glass {
+    background: rgba(4, 18, 35, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid hsl(var(--mobile-cyan-glow) / 0.2);
+  }
+
+  .mobile-glass-card {
+    background: rgba(8, 26, 38, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--mobile-cyan-glow) / 0.1);
+  }
+
+  .mobile-glass-button {
+    background: rgba(8, 26, 38, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--mobile-cyan-glow) / 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-glass-button:hover {
+    background: rgba(8, 26, 38, 0.8);
+    box-shadow: 0 0 20px hsl(var(--mobile-cyan-glow) / 0.3);
+    transform: scale(1.05);
+  }
+
+  .mobile-glow-text {
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-cyan-glow)), 
+      hsl(var(--mobile-cyan-muted)));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px hsl(var(--mobile-cyan-glow) / 0.3));
+  }
+
+  .mobile-price-badge {
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-cyan-glow)), 
+      hsl(56 100% 60%));
+    color: hsl(var(--mobile-navy-start));
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    font-size: 1.125rem;
+    display: inline-block;
+    box-shadow: 0 0 20px hsl(var(--mobile-cyan-glow) / 0.4);
+  }
+
+  .mobile-product-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, hsl(var(--mobile-cyan-glow) / 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glow-pulse 3s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  .mobile-product-float {
+    animation: float-product 4s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px hsl(var(--mobile-cyan-glow) / 0.2));
+  }
+
+  .mobile-wave-bg {
+    position: absolute;
+    bottom: -50px;
+    left: -20%;
+    right: -20%;
+    height: 100px;
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-cyan-glow) / 0.1), 
+      transparent);
+    border-radius: 50%;
+    transform: rotate(-5deg);
+    z-index: 0;
+  }
+
+  .mobile-selected-color {
+    background: rgba(8, 26, 38, 0.8);
+    border: 2px solid hsl(var(--mobile-cyan-glow));
+    box-shadow: 0 0 20px hsl(var(--mobile-cyan-glow) / 0.5);
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .mobile-selected-size {
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-cyan-glow)), 
+      hsl(var(--mobile-cyan-muted)));
+    color: hsl(var(--mobile-navy-start));
+    box-shadow: 0 0 20px hsl(var(--mobile-cyan-glow) / 0.5);
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .mobile-hover-size:hover {
+    background: rgba(8, 26, 38, 0.8);
+    box-shadow: 0 0 15px hsl(var(--mobile-cyan-glow) / 0.3);
+    transform: scale(1.05);
+  }
+
+  .mobile-disabled-size {
+    background: rgba(8, 26, 38, 0.3);
+    color: hsl(var(--mobile-cyan-muted) / 0.5);
+    cursor: not-allowed;
+    border: 1px solid hsl(var(--mobile-cyan-glow) / 0.1);
+  }
+
+  .mobile-selected-wishlist {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgb(239, 68, 68);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .mobile-cta-button {
+    background: linear-gradient(135deg, 
+      hsl(var(--mobile-cyan-glow)), 
+      hsl(178 100% 60%));
+    color: hsl(var(--mobile-navy-start));
+    box-shadow: 0 0 30px hsl(var(--mobile-cyan-glow) / 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-cta-button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 40px hsl(var(--mobile-cyan-glow) / 0.7);
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) translateX(0px); }
+    25% { transform: translateY(-10px) translateX(5px); }
+    50% { transform: translateY(-5px) translateX(-5px); }
+    75% { transform: translateY(-15px) translateX(3px); }
+  }
+
+  .animate-float-slow {
+    animation: float-slow 4s ease-in-out infinite;
   }
 }
