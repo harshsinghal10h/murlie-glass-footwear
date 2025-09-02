@@ -81,10 +81,6 @@ const Footer = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-sm">
-                <MapPin className="h-4 w-4 text-accent" />
-                <span className="text-muted-foreground">123 Fashion District, Style City, SC 12345</span>
-              </div>
-              <div className="flex items-center space-x-3 text-sm">
                 <Phone className="h-4 w-4 text-accent" />
                 <span className="text-muted-foreground">+917014718223</span>
               </div>
