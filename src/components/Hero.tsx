@@ -21,12 +21,12 @@ const Hero = () => {
               <span className="text-sm font-medium">Premium Footwear Collection</span>
             </div>
             
-            <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-              <span className="text-sky-400">
+            <h1 className="text-5xl lg:text-7xl font-inter font-bold leading-tight">
+              <span className="text-white">
                 Step Into
               </span>
               <br />
-              <span className="text-foreground">The Future</span>
+              <span className="text-white">The Future</span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
