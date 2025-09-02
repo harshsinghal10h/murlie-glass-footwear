@@ -72,7 +72,7 @@ const FeaturedProducts = () => {
         <div className="text-center mb-16 animate-slide-up">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-foreground">Featured </span>
-            <span className="bg-gradient-secondary bg-clip-text text-transparent">
+            <span className="text-gradient-secondary">
               Products
             </span>
           </h2>
