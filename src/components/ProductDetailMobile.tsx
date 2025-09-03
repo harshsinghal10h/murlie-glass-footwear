@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, Heart, ShoppingCart, Plus, Minus, Star, ChevronDown, Truck, RotateCcw, Shield, Leaf } from "lucide-react";
 import { toast } from "sonner";
+import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface ColorVariant {
   id: string;
@@ -21,7 +24,9 @@ const ProductDetailMobile = ({ onBack }: ProductDetailMobileProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [expandedDescription, setExpandedDescription] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const { addToCart, totalItems } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const product = {
     name: "Nike Air Max Plus",
@@ -66,15 +71,19 @@ const ProductDetailMobile = ({ onBack }: ProductDetailMobileProps) => {
     { id: "IND10", label: "IND10", stock: 0 }
   ];
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
+    if (!user) {
+      toast.error("Please sign in to add items to cart");
+      navigate("/auth");
+      return;
+    }
+    
     if (!selectedSize) {
       toast.error("Please select a size");
       return;
     }
-    setCartCount(prev => prev + quantity);
-    toast.success("Added ✓", {
-      description: `${product.name} (${selectedSize}) added to cart!`
-    });
+    
+    await addToCart("4", quantity, selectedSize, selectedColor);
   };
 
   const toggleWishlist = () => {
@@ -125,9 +134,9 @@ const ProductDetailMobile = ({ onBack }: ProductDetailMobileProps) => {
           className="mobile-glass-button p-3 rounded-full relative"
         >
           <ShoppingCart className="h-5 w-5 text-cyan-glow" />
-          {cartCount > 0 && (
+          {totalItems > 0 && (
             <div className="absolute -top-1 -right-1 bg-cyan-glow text-mobile-navy text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
-              {cartCount}
+              {totalItems}
             </div>
           )}
         </Button>

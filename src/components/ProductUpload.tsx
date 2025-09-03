@@ -1,8 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Upload, X, Camera, Package } from "lucide-react";
+import { Upload, X, Camera, Package, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 interface ProductImage {
   id: string;
@@ -13,15 +16,19 @@ interface ProductImage {
 
 const ProductUpload = () => {
   const [images, setImages] = useState<ProductImage[]>([
-    { id: "1", file: null, preview: null, size: "IND 8" },
-    { id: "2", file: null, preview: null, size: "IND 7" },
-    { id: "3", file: null, preview: null, size: "IND 6" },
-    { id: "4", file: null, preview: null, size: "Main Image" }
+    { id: "1", file: null, preview: null, size: "Main Image" },
+    { id: "2", file: null, preview: null, size: "Side View" },
+    { id: "3", file: null, preview: null, size: "Back View" },
+    { id: "4", file: null, preview: null, size: "Detail View" }
   ]);
   
   const [productName, setProductName] = useState("");
   const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleImageUpload = (imageId: string, event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -68,7 +75,23 @@ const ProductUpload = () => {
     fileInputRefs.current[imageId]?.click();
   };
 
-  const handleSubmit = () => {
+  const addMoreImages = () => {
+    const newId = (images.length + 1).toString();
+    setImages(prev => [...prev, { 
+      id: newId, 
+      file: null, 
+      preview: null, 
+      size: `Image ${newId}` 
+    }]);
+  };
+
+  const handleSubmit = async () => {
+    if (!user) {
+      toast.error("Please sign in to upload products");
+      navigate("/auth");
+      return;
+    }
+
     const uploadedImages = images.filter(img => img.file !== null);
     
     if (uploadedImages.length === 0) {
@@ -81,8 +104,57 @@ const ProductUpload = () => {
       return;
     }
 
-    // Here you would typically upload to your backend
-    toast.success(`Product "${productName}" created with ${uploadedImages.length} images!`);
+    if (!price.trim()) {
+      toast.error("Please enter a price");
+      return;
+    }
+
+    try {
+      // Insert product into database
+      const { data: product, error: productError } = await supabase
+        .from('products')
+        .insert({
+          name: productName,
+          category: category || 'Uncategorized',
+          price: parseFloat(price),
+          description: description
+        })
+        .select()
+        .single();
+
+      if (productError) throw productError;
+
+      // Upload images for the product (simplified - in real app you'd upload to storage)
+      const imagePromises = uploadedImages.map((img, index) => 
+        supabase
+          .from('product_images')
+          .insert({
+            product_id: product.id,
+            image_url: img.preview!, // In real app, upload to storage first
+            alt_text: `${productName} ${img.size}`,
+            is_primary: index === 0
+          })
+      );
+
+      await Promise.all(imagePromises);
+
+      toast.success(`Product "${productName}" created with ${uploadedImages.length} images!`);
+      
+      // Reset form
+      setImages([
+        { id: "1", file: null, preview: null, size: "Main Image" },
+        { id: "2", file: null, preview: null, size: "Side View" },
+        { id: "3", file: null, preview: null, size: "Back View" },
+        { id: "4", file: null, preview: null, size: "Detail View" }
+      ]);
+      setProductName("");
+      setCategory("");
+      setPrice("");
+      setDescription("");
+      
+    } catch (error: any) {
+      toast.error("Failed to create product: " + error.message);
+    }
   };
 
   return (
@@ -144,6 +216,32 @@ const ProductUpload = () => {
                   <option value="boots">Designer Boots</option>
                   <option value="casual">Casual Wear</option>
                 </select>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
+                  Price (₹)
+                </label>
+                <input
+                  type="number"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl glass-panel border-0 text-foreground placeholder-muted-foreground focus:ring-2 focus:ring-accent/50 transition-all"
+                  placeholder="Enter price in rupees..."
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-muted-foreground mb-2">
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl glass-panel border-0 text-foreground placeholder-muted-foreground focus:ring-2 focus:ring-accent/50 transition-all"
+                  placeholder="Enter product description..."
+                  rows={3}
+                />
               </div>
             </div>
           </Card>
@@ -225,6 +323,36 @@ const ProductUpload = () => {
                 </div>
               </Card>
             ))}
+            
+            {/* Add More Images Button */}
+            <Card className="glass-card overflow-hidden group hover:glow-primary transition-all duration-500">
+              <div 
+                className="relative aspect-square flex flex-col items-center justify-center cursor-pointer hover:bg-muted/20 transition-colors"
+                onClick={addMoreImages}
+              >
+                <div className="p-4 rounded-full bg-gradient-glass mb-4">
+                  <Plus className="h-8 w-8 text-accent" />
+                </div>
+                <p className="text-sm text-muted-foreground text-center mb-2">
+                  Add More Images
+                </p>
+                <p className="text-xs text-accent font-semibold">
+                  Upload Additional Views
+                </p>
+              </div>
+              
+              <div className="p-4">
+                <Button
+                  onClick={addMoreImages}
+                  variant="outline"
+                  size="sm"
+                  className="w-full glass-button group/btn"
+                >
+                  <Plus className="h-4 w-4 mr-2 group-hover/btn:scale-110 transition-transform" />
+                  Add More
+                </Button>
+              </div>
+            </Card>
           </div>
 
           {/* Upload Guidelines */}

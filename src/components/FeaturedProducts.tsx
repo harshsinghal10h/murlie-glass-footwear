@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
 import pinkKnitSneakers from "@/assets/pink-knit-sneakers.jpg";
 import pinkSlipSneakers from "@/assets/pink-slip-sneakers.jpg";
 import decorativeSandals from "@/assets/decorative-sandals.jpg";
@@ -8,13 +11,15 @@ import blackSlippers from "@/assets/black-glitter-slippers.jpg";
 
 const FeaturedProducts = () => {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const { user } = useAuth();
   const products = [
     {
-      id: 1,
+      id: "1",
       name: "AeroFlex Knit Pro",
       category: "Athletic Sneakers",
-      price: 285,
-      originalPrice: 320,
+      price: 7499,
+      originalPrice: 8999,
       image: pinkKnitSneakers,
       rating: 4.9,
       reviews: 156,
@@ -22,10 +27,10 @@ const FeaturedProducts = () => {
       gradient: "from-primary to-accent"
     },
     {
-      id: 2,
+      id: "2",
       name: "ComfortSlip Elite",
       category: "Casual Sneakers",
-      price: 275,
+      price: 6999,
       originalPrice: null,
       image: pinkSlipSneakers,
       rating: 4.8,
@@ -34,11 +39,11 @@ const FeaturedProducts = () => {
       gradient: "from-secondary to-primary-light"
     },
     {
-      id: 3,
+      id: "3",
       name: "Heritage Craft Sandals",
       category: "Traditional Footwear",
-      price: 265,
-      originalPrice: 300,
+      price: 5999,
+      originalPrice: 6999,
       image: decorativeSandals,
       rating: 4.7,
       reviews: 203,
@@ -46,10 +51,10 @@ const FeaturedProducts = () => {
       gradient: "from-accent to-secondary-glow"
     },
     {
-      id: 4,
+      id: "4",
       name: "Sparkle Comfort Slippers",
       category: "Casual Footwear", 
-      price: 250,
+      price: 4999,
       originalPrice: null,
       image: blackSlippers,
       rating: 4.6,
@@ -58,6 +63,16 @@ const FeaturedProducts = () => {
       gradient: "from-primary-glow to-accent-soft"
     }
   ];
+
+  const handleAddToCart = async (productId: string) => {
+    if (!user) {
+      toast.error("Please sign in to add items to cart");
+      navigate("/auth");
+      return;
+    }
+    
+    await addToCart(productId, 1);
+  };
 
   return (
     <section id="products" className="py-20 relative bg-background/50 backdrop-blur-sm">
@@ -127,7 +142,11 @@ const FeaturedProducts = () => {
                   >
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button size="sm" className="glass-button bg-gradient-primary">
+                  <Button 
+                    size="sm" 
+                    className="glass-button bg-gradient-primary"
+                    onClick={() => handleAddToCart(product.id)}
+                  >
                     <ShoppingCart className="h-4 w-4" />
                   </Button>
                 </div>
@@ -182,6 +201,7 @@ const FeaturedProducts = () => {
                 <Button 
                   className="w-full glass-button group/cart"
                   size="sm"
+                  onClick={() => handleAddToCart(product.id)}
                 >
                   Add to Cart
                   <ShoppingCart className="ml-2 h-4 w-4 group-hover/cart:scale-110 transition-transform" />

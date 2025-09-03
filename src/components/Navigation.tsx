@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Search, Menu, X } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const { totalItems } = useCart();
+  const navigate = useNavigate();
 
   const navItems = [
     { label: "Home", href: "#" },
@@ -43,9 +49,33 @@ const Navigation = () => {
             <Button variant="ghost" size="icon" className="glass-button">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="glass-button">
+            <Button variant="ghost" size="icon" className="glass-button relative">
               <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-accent text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
             </Button>
+            {user ? (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="glass-button"
+                onClick={signOut}
+              >
+                <LogOut className="h-5 w-5" />
+              </Button>
+            ) : (
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="glass-button"
+                onClick={() => navigate("/auth")}
+              >
+                <User className="h-5 w-5" />
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -83,9 +113,33 @@ const Navigation = () => {
                 <Button variant="ghost" size="icon" className="glass-button">
                   <Search className="h-5 w-5" />
                 </Button>
-                <Button variant="ghost" size="icon" className="glass-button">
+                <Button variant="ghost" size="icon" className="glass-button relative">
                   <ShoppingCart className="h-5 w-5" />
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-accent text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
+                      {totalItems}
+                    </span>
+                  )}
                 </Button>
+                {user ? (
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="glass-button"
+                    onClick={signOut}
+                  >
+                    <LogOut className="h-5 w-5" />
+                  </Button>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="glass-button"
+                    onClick={() => navigate("/auth")}
+                  >
+                    <User className="h-5 w-5" />
+                  </Button>
+                )}
               </div>
             </div>
           </div>
